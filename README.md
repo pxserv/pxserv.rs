@@ -1,6 +1,6 @@
 # PxServrs
 
-`PxServrs`, Rust dilinde verilerinizi basit ve etkili bir şekilde sunucunuza kaydetmenizi ve yönetmenizi sağlayan bir kütüphanedir. Bu kütüphane ile verilerinizi API üzerinden kolayca saklayabilir, alabilir ve silebilirsiniz.
+`PxServrs`, Rust dilinde verilerinizi basit ve etkili bir şekilde PxServ'e kaydetmenizi ve yönetmenizi sağlayan bir kütüphanedir. Bu kütüphane ile verilerinizi PxServ'e kolayca saklayabilir, alabilir ve silebilirsiniz.
 
 ## Kurulum
 
@@ -8,7 +8,7 @@ Projenize `PxServrs` kütüphanesini eklemek için öncelikle `Cargo.toml` dosya
 
 ```toml
 [dependencies]
-pxservrs = "0.0.3"
+pxservrs = "0.0.4"
 ```
 
 ## Kullanım
