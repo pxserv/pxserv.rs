@@ -52,4 +52,52 @@ impl PxServ {
             }
         }
     }
+    pub fn getdata(&self, key: String) -> PxServStatus {
+        let client = Client::new();
+
+        let request_body = json!({
+            "apiKey":self.apikey,
+            "key":key,
+        });
+
+        let request = client
+            .post("https://api.pxserv.net/database/getData")
+            .json(&request_body)
+            .send();
+
+        match request {
+            Ok(response) => {
+                let response_text = response.text().unwrap();
+                let json_response: Value = serde_json::from_str(&response_text).unwrap();
+
+                let status = json_response.get("status").unwrap().to_string();
+                let message = json_response.get("message").unwrap().to_string();
+
+                let data = if status == "200" {
+                    Some(
+                        json_response
+                            .get("data")
+                            .and_then(|f| f.get("value"))
+                            .unwrap()
+                            .to_string(),
+                    )
+                } else {
+                    None
+                };
+
+                return PxServStatus {
+                    status,
+                    message,
+                    data,
+                };
+            }
+            Err(err) => {
+                return PxServStatus {
+                    status: "-1".to_string(),
+                    message: err.to_string(),
+                    data: None,
+                }
+            }
+        }
+    }
 }
