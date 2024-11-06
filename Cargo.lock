@@ -518,8 +518,8 @@ dependencies = [
 ]
 
 [[package]]
-name = "pxservrs"
-version = "0.0.4"
+name = "pxserv"
+version = "0.0.1"
 dependencies = [
  "reqwest",
  "serde_json",
