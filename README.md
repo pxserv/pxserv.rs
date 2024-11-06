@@ -1,41 +1,40 @@
-# PxServrs
+# PxServ
 
-`PxServrs`, Rust dilinde verilerinizi basit ve etkili bir şekilde PxServ'e kaydetmenizi ve yönetmenizi sağlayan bir kütüphanedir. Bu kütüphane ile verilerinizi PxServ'e kolayca saklayabilir, alabilir ve silebilirsiniz.
+`pxserv`, Rust dilinde verilerinizi basit ve etkili bir şekilde PxServ'e kaydetmenizi ve yönetmenizi sağlayan bir kütüphanedir. Bu kütüphane ile verilerinizi PxServ'e kolayca saklayabilir, alabilir ve silebilirsiniz.
 
 ## Kurulum
 
-Projenize `PxServrs` kütüphanesini eklemek için öncelikle `Cargo.toml` dosyanıza şu satırı ekleyin:
+Projenize `pxserv` kütüphanesini eklemek için öncelikle terminalde şu satırı çalıştırın:
 
-```toml
-[dependencies]
-pxservrs = "0.0.4"
+```bash
+cargo add pxserv
 ```
 
 ## Kullanım
 
-`PxServrs` kütüphanesini kullanmak oldukça basittir. İlk olarak `apikey` değeriyle bir `PxServ` nesnesi oluşturmanız gerekir. Bu nesne üzerinden verilerinizi PxServ'e kaydedebilir, veri çekebilir veya silebilirsiniz.
+`pxserv` kütüphanesini kullanmak oldukça basittir. İlk olarak `apikey` değeriyle bir `PxServ` nesnesi oluşturmanız gerekir. Bu nesne üzerinden verilerinizi PxServ'e kaydedebilir, veri çekebilir veya silebilirsiniz.
 
 ### Temel Kullanım
 
 ```rust
-use pxservrs::PxServ;
+use pxserv::PxServ;
 
 fn main() {
     // PxServ örneği oluşturma
-    let pxserv = PxServ::new("API_KEY".to_string());
+    let client = PxServ::new("API_KEY".to_string());
 
     // Veri kaydetme
-    let status = pxserv.setdata("temperature".to_string(), "22.5°C".to_string());
+    let status = client.setdata("temperature".to_string(), "22.5°C".to_string());
     println!("Durum: {}, Mesaj: {}", status.status, status.message);
 
     // Veri çekme
-    let response = pxserv.getdata("temperature".to_string());
+    let response = client.getdata("temperature".to_string());
     if let Some(data) = response.data {
         println!("Veri: {}", data);
     }
 
     // Veri silme
-    let delete_status = pxserv.removedata("temperature".to_string());
+    let delete_status = client.removedata("temperature".to_string());
     println!(
         "Silme Durumu: {}, Mesaj: {}",
         delete_status.status, delete_status.message
