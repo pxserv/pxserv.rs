@@ -19,13 +19,13 @@ impl PxServ {
         let client = Client::new();
 
         let request_body = json!({
-            "apiKey":self.apikey,
             "key":key,
             "value":value
         });
 
         let request = client
             .post("https://api.pxserv.net/database/setData")
+            .header("apikey", self.apikey.to_string())
             .json(&request_body)
             .send();
 
@@ -56,12 +56,12 @@ impl PxServ {
         let client = Client::new();
 
         let request_body = json!({
-            "apiKey":self.apikey,
             "key":key,
         });
 
         let request = client
             .post("https://api.pxserv.net/database/getData")
+            .header("apikey", self.apikey.to_string())
             .json(&request_body)
             .send();
 
@@ -104,12 +104,12 @@ impl PxServ {
         let client = Client::new();
 
         let request_body = json!({
-            "apiKey":self.apikey,
             "key":key,
         });
 
         let request = client
             .post("https://api.pxserv.net/database/removeData")
+            .header("apikey", self.apikey.to_string())
             .json(&request_body)
             .send();
 
