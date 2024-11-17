@@ -519,7 +519,7 @@ dependencies = [
 
 [[package]]
 name = "pxserv"
-version = "0.0.1"
+version = "1.0.0"
 dependencies = [
  "reqwest",
  "serde_json",
