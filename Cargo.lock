@@ -318,7 +318,7 @@ dependencies = [
 
 [[package]]
 name = "idna"
-version = "1.0.0"
+version = "0.5.0"
 source = "registry+https://github.com/rust-lang/crates.io-index"
 checksum = "634d9b1461af396cad843f47fdba5597a4f9e6ddd4bfb6ff5d85028c25cb12f6"
 dependencies = [
@@ -519,7 +519,7 @@ dependencies = [
 
 [[package]]
 name = "pxserv"
-version = "1.0.0"
+version = "1.0.1"
 dependencies = [
  "reqwest",
  "serde_json",

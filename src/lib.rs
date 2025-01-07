@@ -12,10 +12,13 @@ pub struct PxServStatus {
 }
 
 impl PxServ {
-    pub fn new(apikey: String) -> PxServ {
-        PxServ { apikey }
+    pub fn new(apikey: &str) -> PxServ {
+        PxServ {
+            apikey: apikey.to_string(),
+        }
     }
-    pub fn setdata(&self, key: String, value: String) -> PxServStatus {
+
+    pub fn setdata(&self, key: &str, value: &str) -> PxServStatus {
         let client = Client::new();
 
         let request_body = json!({
@@ -25,7 +28,7 @@ impl PxServ {
 
         let request = client
             .post("https://api.pxserv.net/database/setData")
-            .header("apikey", self.apikey.to_string())
+            .header("apikey", &self.apikey)
             .json(&request_body)
             .send();
 
@@ -34,8 +37,16 @@ impl PxServ {
                 let response_text = response.text().unwrap();
                 let json_response: Value = serde_json::from_str(&response_text).unwrap();
 
-                let status = json_response.get("status").unwrap().to_string();
-                let message = json_response.get("message").unwrap().to_string();
+                let status = json_response
+                    .get("status")
+                    .and_then(|s| s.as_i64())
+                    .expect("PxServ API ERROR")
+                    .to_string();
+                let message = json_response
+                    .get("message")
+                    .and_then(|s| s.as_str())
+                    .expect("PxServ API ERROR")
+                    .to_string();
 
                 return PxServStatus {
                     status,
@@ -52,7 +63,8 @@ impl PxServ {
             }
         }
     }
-    pub fn getdata(&self, key: String) -> PxServStatus {
+
+    pub fn getdata(&self, key: &str) -> PxServStatus {
         let client = Client::new();
 
         let request_body = json!({
@@ -61,7 +73,7 @@ impl PxServ {
 
         let request = client
             .post("https://api.pxserv.net/database/getData")
-            .header("apikey", self.apikey.to_string())
+            .header("apikey", &self.apikey)
             .json(&request_body)
             .send();
 
@@ -70,15 +82,24 @@ impl PxServ {
                 let response_text = response.text().unwrap();
                 let json_response: Value = serde_json::from_str(&response_text).unwrap();
 
-                let status = json_response.get("status").unwrap().to_string();
-                let message = json_response.get("message").unwrap().to_string();
+                let status = json_response
+                    .get("status")
+                    .and_then(|s| s.as_i64())
+                    .expect("PxServ API ERROR")
+                    .to_string();
+                let message = json_response
+                    .get("message")
+                    .and_then(|s| s.as_str())
+                    .expect("PxServ API ERROR")
+                    .to_string();
 
                 let data = if status == "200" {
                     Some(
                         json_response
                             .get("data")
                             .and_then(|f| f.get("value"))
-                            .unwrap()
+                            .and_then(|s| s.as_str())
+                            .expect("PxServ API ERROR")
                             .to_string(),
                     )
                 } else {
@@ -100,7 +121,8 @@ impl PxServ {
             }
         }
     }
-    pub fn removedata(&self, key: String) -> PxServStatus {
+
+    pub fn removedata(&self, key: &str) -> PxServStatus {
         let client = Client::new();
 
         let request_body = json!({
@@ -109,7 +131,7 @@ impl PxServ {
 
         let request = client
             .post("https://api.pxserv.net/database/removeData")
-            .header("apikey", self.apikey.to_string())
+            .header("apikey", &self.apikey)
             .json(&request_body)
             .send();
 
@@ -118,8 +140,16 @@ impl PxServ {
                 let response_text = response.text().unwrap();
                 let json_response: Value = serde_json::from_str(&response_text).unwrap();
 
-                let status = json_response.get("status").unwrap().to_string();
-                let message = json_response.get("message").unwrap().to_string();
+                let status = json_response
+                    .get("status")
+                    .and_then(|s| s.as_i64())
+                    .expect("PxServ API ERROR")
+                    .to_string();
+                let message = json_response
+                    .get("message")
+                    .and_then(|s| s.as_str())
+                    .expect("PxServ API ERROR")
+                    .to_string();
 
                 return PxServStatus {
                     status,
