@@ -1,6 +1,6 @@
 [package]
 name = "pxserv"
-version = "1.1.0"
+version = "1.1.1"
 description = "PxServ Library for Rust"
 edition = "2021"
 authors = ["mustafa 'pxsty' kok <pxsty@pxserv.net>"]

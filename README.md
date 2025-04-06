@@ -1,55 +1,34 @@
 # PxServ
 
-`pxserv`, Rust dilinde verilerinizi basit ve etkili bir şekilde PxServ'e kaydetmenizi ve yönetmenizi sağlayan bir kütüphanedir. Bu kütüphane ile verilerinizi PxServ'e kolayca saklayabilir, alabilir ve silebilirsiniz.
+`PxServ` is a Rust library that allows you to save and manage your data in the PxServ database in a simple and effective way.
 
-## Kurulum
+`PxServ`, verilerinizi basit ve etkili bir şekilde PxServ veritabanına kaydetmenizi ve yönetmenizi sağlayan bir Rust kütüphanesidir.
 
-Projenize `pxserv` kütüphanesini eklemek için öncelikle terminalde şu satırı çalıştırın:
+## Installation / Kurulum
+
+To add the library to your project, you can run the following command in your terminal:
+
+Kütüphaneyi projenize eklemek için terminalde aşağıdaki komutu çalıştırabilirsiniz:
 
 ```bash
 cargo add pxserv
 ```
 
-## Kullanım
+## Usage / Kullanım
 
-`pxserv` kütüphanesini kullanmak oldukça basittir. İlk olarak `apikey` değeriyle bir `PxServ` nesnesi oluşturmanız gerekir. Bu nesne üzerinden verilerinizi PxServ'e kaydedebilir, veri çekebilir veya silebilirsiniz.
+You can find detailed usage below. If you need more details, please refer to the documentation:
 
-### Temel Kullanım
+Aşağıda temel kullanım örneğini bulabilirsiniz. Daha detaylı kullanım için lütfen dokümantasyona bakınız:
 
-```rust
-use pxserv::PxServ;
+- [English Documentation](https://docs.pxserv.net/en/rust-library)
+- [Türkçe Dokümantasyon](https://docs.pxserv.net/tr/rust-kutuphanesi)
 
-fn main() {
-    // PxServ örneği oluşturma
-    let client = PxServ::new("API_KEY");
+## Contributing / Katkıda Bulunma
 
-    // Veri kaydetme
-    let set_response = client.setdata("temperature", "22.5°C");
-    println!(
-        "Durum: {}, Mesaj: {}",
-        set_response.status, set_response.message
-    );
-
-    // Veri çekme
-    let get_response = client.getdata("temperature");
-    println!(
-        "Durum: {}, Mesaj: {}, Veri : {:?}",
-        get_response.status, get_response.message, get_response.data
-    );
-
-    // Veri silme
-    let remove_response = client.removedata("temperature");
-    println!(
-        "Silme Durumu: {}, Mesaj: {}",
-        remove_response.status, remove_response.message
-    );
-}
-```
-
-### Katkıda Bulunma
+If you would like to contribute, you can fork the project and develop on your own branch. We would be happy to review your changes!
 
 Katkıda bulunmak isterseniz, projeyi forklayarak kendi branch'inizde geliştirme yapabilirsiniz. Değişikliklerinizi incelemekten memnuniyet duyarız!
 
-## Lisans
+## License / Lisans
 
 [![MIT License](https://img.shields.io/badge/License-MIT-blue.svg)](https://opensource.org/licenses/MIT)
