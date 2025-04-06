@@ -64,6 +64,51 @@ impl PxServ {
         }
     }
 
+    pub fn toggledata(&self, key: &str) -> PxServStatus {
+        let client = Client::new();
+
+        let request_body = json!({
+            "key":key,
+        });
+
+        let request = client
+            .post("https://api.pxserv.net/database/toggleData")
+            .header("apikey", &self.apikey)
+            .json(&request_body)
+            .send();
+
+        match request {
+            Ok(response) => {
+                let response_text = response.text().unwrap();
+                let json_response: Value = serde_json::from_str(&response_text).unwrap();
+
+                let status = json_response
+                    .get("status")
+                    .and_then(|s| s.as_i64())
+                    .expect("PxServ API ERROR")
+                    .to_string();
+                let message = json_response
+                    .get("message")
+                    .and_then(|s| s.as_str())
+                    .expect("PxServ API ERROR")
+                    .to_string();
+
+                return PxServStatus {
+                    status,
+                    message,
+                    data: None,
+                };
+            }
+            Err(err) => {
+                return PxServStatus {
+                    status: "-1".to_string(),
+                    message: err.to_string(),
+                    data: None,
+                }
+            }
+        }
+    }
+
     pub fn getdata(&self, key: &str) -> PxServStatus {
         let client = Client::new();
 
